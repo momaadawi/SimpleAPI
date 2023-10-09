@@ -18,8 +18,8 @@ public class WeatherForecastController : ControllerBase
         _logger = logger;
     }
 
-    [HttpGet(Name = "GetWeatherForecast")]
-    public IEnumerable<WeatherForecast> Get()
+    [HttpGet("GetWeatherForecast")]
+    public IEnumerable<WeatherForecast> GetWeatherForecast()
     {
         return Enumerable.Range(1, 5).Select(index => new WeatherForecast
         {
@@ -29,4 +29,15 @@ public class WeatherForecastController : ControllerBase
         })
         .ToArray();
     }
+
+    [HttpGet("numb")]
+    public int Increment([FromQuery]Number number)
+    {
+        var result = number.num + 1;
+        return result;
+    }
+}
+
+public class Number {
+    public int num { get; set; }
 }
