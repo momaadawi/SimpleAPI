@@ -7,25 +7,19 @@ trigger:
 - main
 
 pool:
-  vmImage: 'windows-latest'
+  name: 'Default'
 
 variables:
   buildConfiguration: 'Release'
 
-steps:
+stages:
+  - stage: first-stag
+    displayName: asas
 
-- script: dotnet build --configuration $(buildConfiguration)
-  displayName: 'dotnet build --configuration $(buildConfiguration)'
+    jobs:
+      - job:
+        steps:
+          - script: |
+              echo hello world 
 
-- task: DotNetCoreCLI@2
-  displayName: 'dotnet publish --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
-  inputs:
-    command: publish
-    publishWebProjects: false
-    projects: 'src/SimpleAPI/SimpleAPI.csproj'
-    arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
-    zipAfterPublish: true
-
-- task: PublishBuildArtifacts@1
-  displayName: 'publish artifacts'
-
+        
